@@ -1,0 +1,87 @@
+//Game Start. Set multiple calls for harvest
+harvest()
+harvest()
+harvest()
+harvest()
+harvest()
+
+//Unlock Loops run to unlock Grass and Speed
+While True: 
+  harvest()
+
+//Speed unlocked enables if statements, run to unlock first Expand
+while True:
+	if can_harvest():
+		harvest()	
+	else:
+		pass
+
+//Expand Unlocked, Moving north out of map resets the drone back to start
+while True:
+	if can_harvest():
+		harvest()	
+	else:
+		move(North)
+
+// Plant unlocked, Harvested alot of hay already, switching to plant bushes and harvest. Grass grows by default after harvesting bushes
+while True:
+	if can_harvest():
+		harvest()
+		plant(Entities.Bush)	
+	else:
+		move(North)
+
+//Senses unlocked New functions get_pos_x() get_pos_y() num_items(item) get_entity_type() and get_ground_type() New Keywords None, for No value returned
+//Operators unlocked arithmetic operators: +, -, *, /, //, %, ** comparison operators: ==, !=, <=, >=, <, > boolean operators: not, and, or      // is defined to just floor the number after the division.
+//This harvests hay up to 300, checking after each full farm harvest, then moves on to harvesting wood up to 300, checking after each full harvest. Once it hits these numbers the drone stops moving and continually checkes that both hay and wood are above the proper value
+while True:
+	while num_items(Items.Hay) <= 300:
+		if can_harvest():
+			harvest()	
+		else:
+			move(North)
+	while num_items(Items.Wood) <= 300:
+		if can_harvest():
+			harvest()
+			plant(Entities.Bush)	
+		else:
+			move(North)
+
+//Debug unlocked break points unlocked, print() quick_print() unlocked 
+//Carrots unlocked carrot seeds cost 1 hay and 1 wood.  Buys carrot seed and checks to see if we are low on wood or hay, if so prints to indicate what caused it to break and start farming the other items back up
+
+while True:
+	while num_items(Items.Hay) <= 300:
+		if get_ground_type() == Grounds.Soil:
+			till()
+		elif can_harvest():
+			harvest()	
+		else:
+			move(North)
+	while num_items(Items.Wood) <= 300:
+		if get_ground_type() == Grounds.Soil:
+			till()
+			plant(Entities.Bush)
+		elif can_harvest():
+			harvest()
+			plant(Entities.Bush)	
+		else:
+			move(North)
+	while num_items(Items.Carrot) <= 300:
+		if num_items(Items.Carrot_Seed) <= 0:
+			trade(Items.Carrot_Seed)
+			if num_items(Items.Hay) <= 100:
+				print(Hay)
+				break
+			if num_items(Items.Wood) <= 100:
+				print(Wood)
+				break
+		elif get_ground_type() == Grounds.Turf:
+			till()
+		elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Carrots:
+			plant(Entities.Carrots)
+		elif can_harvest():
+			harvest()
+		else:
+			move(North)
+
