@@ -85,3 +85,102 @@ while True:
 		else:
 			move(North)
 
+//Expand Unlocked  3x3 plot  then again to 4x4
+while True:
+	while num_items(Items.Hay) <= 300:
+		if get_ground_type() == Grounds.Soil:
+			till()
+		elif can_harvest():
+			harvest()	
+		else:
+				if get_pos_y()<=get_world_size()-2:
+					move(North)
+				elif get_pos_x()<=get_world_size()-2:
+					move(North)
+					move(East)
+				else:
+					move(North)
+					move(East)
+	while num_items(Items.Wood) <= 300:
+		if get_ground_type() == Grounds.Soil:
+			till()
+			plant(Entities.Bush)
+		elif can_harvest():
+			harvest()
+			plant(Entities.Bush)	
+		else:
+				if get_pos_y()<=get_world_size()-2:
+					move(North)
+				elif get_pos_x()<=get_world_size()-2:
+					move(North)
+					move(East)
+				else:
+					move(North)
+					move(East)
+	while num_items(Items.Carrot) <= 300:
+		if num_items(Items.Carrot_Seed) <= 0:
+			trade(Items.Carrot_Seed)
+			if num_items(Items.Hay) <= 125:
+				print("Hay")
+				break
+			if num_items(Items.Wood) <= 100:
+				print("Wood")
+				break
+		elif get_ground_type() == Grounds.Turf:
+			till()
+		elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Carrots:
+			plant(Entities.Carrots)
+		elif can_harvest():
+			harvest()
+		else:
+				if get_pos_y()<=get_world_size()-2:
+					move(North)
+				elif get_pos_x()<=get_world_size()-2:
+					move(North)
+					move(East)
+				else:
+					move(North)
+					move(East)
+// Functions Unlocked.  Beginning Rewrite
+
+
+
+#move forward in the world going first north, then back to south and to the East returning to start when reaching the end of the world
+def moveworld():
+	if get_pos_y()<=get_world_size()-2:
+		move(North)
+	elif get_pos_x()<=get_world_size()-2:
+		move(North)
+		move(East)
+	else:
+		move(North)
+		move(East)
+
+#havest then move forward inworld	
+def harvestmove():
+	harvest()
+	moveworld()
+	
+	harvestThreshold = 400
+while itemsNeeded(harvestThreshold) == "Hay":
+	harvestmove()
+while itemsNeeded(harvestThreshold) == "Wood":
+	harvestmove()
+	
+	
+	
+	
+	
+#Returns crops that are below requested threshold
+def itemsNeeded(threshold):
+	if num_items(Items.Hay) <= threshold:
+		return "Hay"
+	elif num_items(Items.Wood) <= threshold:	
+		return "Wood"
+	elif num_items(Items.Carrot) <= threshold:
+		return "Carrots"
+	else:
+		return "Flip
+
+
+
