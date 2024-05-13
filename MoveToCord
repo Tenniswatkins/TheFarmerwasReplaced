@@ -1,0 +1,21 @@
+#move to indicated cordinates x , y
+def moveToCord(targetx , targety):
+	movex = targetx - get_pos_x()
+	movey = targety - get_pos_y()
+	if movex >= 1:
+		for i in range(movex):
+			move(East)
+	elif movex <=-1:
+		for i in range(abs(movex)):
+			move(West)
+	else:
+		pass
+
+	if movey >= 1:
+		for i in range(movey):
+			move(North)
+	elif movey <=-1:
+		for i in range(abs(movey)):
+			move(South)
+	else:
+		pass
