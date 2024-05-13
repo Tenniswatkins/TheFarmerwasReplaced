@@ -8,3 +8,4 @@ def moveWorld():
 	else:
 		move(North)
 		move(East)
+		return(1)
