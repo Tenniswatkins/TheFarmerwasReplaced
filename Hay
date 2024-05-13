@@ -1,0 +1,11 @@
+#Sets drone to harvest and set plot to grow default item, aka hay/grass
+def harvestHay():
+	if get_ground_type() == Grounds.Soil:
+		harvest()
+		till()
+		moveWorld()
+	elif can_harvest():
+		harvest()	
+		moveWorld()
+	else:
+		moveWorld()
