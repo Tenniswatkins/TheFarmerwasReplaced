@@ -1,5 +1,6 @@
 #Sets drone to harvest and set plot to grow default item, aka hay/grass
 def harvestHay():
+	use_item(Items.Water_Tank)
 	if get_ground_type() == Grounds.Soil:
 		harvest()
 		till()
