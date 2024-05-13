@@ -1,19 +1,21 @@
 #Sets drone to harvest and set plot growing carrots buying seeds as needed.
 def harvestCarrot():
-		if num_items(Items.Carrot_Seed) <= 1:
-			trade(Items.Carrot_Seed)
-		elif get_ground_type() == Grounds.Turf:
-			harvest()
-			till()
-			plant(Entities.Carrots)
-			moveWorld()
-		elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Carrots:
-			harvest()
-			plant(Entities.Carrots)
-			moveWorld()
-		elif can_harvest():
-			harvest()
-			plant(Entities.Carrots)
-			moveWorld()
-		else:
-			moveWorld()
+	use_item(Items.Water_Tank)
+	if get_ground_type() == Grounds.Turf:
+		harvest()
+		till()
+		trade(Items.Carrot_Seed)
+		plant(Entities.Carrots)
+		moveWorld()
+	elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Carrots:
+		harvest()
+		trade(Items.Carrot_Seed)
+		plant(Entities.Carrots)
+		moveWorld()
+	elif can_harvest():
+		harvest()
+		trade(Items.Carrot_Seed)
+		plant(Entities.Carrots)
+		moveWorld()
+	else:
+		moveWorld()	
