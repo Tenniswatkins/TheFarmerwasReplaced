@@ -1,0 +1,32 @@
+#Sets drone to harvest and set plot growing pumpkins buying seeds as needed, Growing pumpkin on all plots on full size farm, checking for full growth across the whole farm before harvesting to get bonus yeild from combained crop.
+def harvestPumpkin():
+	size = get_world_size()*get_world_size()
+	plantedPumpkins = 0 
+	while plantedPumpkins < size:		
+		if get_entity_type() == Entities.Pumpkin:
+			if can_harvest():
+				plantedPumpkins += 1
+				moveWorld()
+			else:
+				pass
+		elif num_items(Items.Pumpkin_Seed) <= 1:
+			if num_items(Items.Carrot) < 50:
+				break
+			else:
+				trade(Items.Pumpkin_Seed)
+		elif get_ground_type() == Grounds.Turf:
+			harvest()
+			till()
+			plant(Entities.Pumpkin)
+			moveWorld()
+			plantedPumpkins = 0 
+		elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Pumpkin:
+			harvest()
+			plant(Entities.Pumpkin)
+			moveWorld()
+			plantedPumpkins = 0 
+		else:
+			moveWorld()
+	if can_harvest():
+		harvest()
+		
