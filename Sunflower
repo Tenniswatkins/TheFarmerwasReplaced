@@ -1,0 +1,58 @@
+#Sets drone to harvest and set plot growing Sunflowers buying seeds as needed, Growing Sunflower on all plots on full size farm, measuring flowers across the whole farm before harvesting the highest amount of petals, replanting flower, measuring, and harvesting the next highest planted flower. 
+def harvestSunflower():
+	length = get_world_size()
+	size = length*length
+	sunflowerz = []
+	plantedSunflowers = 0
+	while len(sunflowerz) < size:
+		use_item(Items.Water_Tank)
+		if get_entity_type() == Entities.Sunflower:
+			plantedSunflowers += 1
+			sunflowerz.append(measure())	
+		elif get_ground_type() == Grounds.Turf:
+			harvest()
+			till()
+			trade(Items.Sunflower_Seed)
+			plant(Entities.Sunflower)
+			sunflowerz.append(measure()) 
+		elif get_ground_type() == Grounds.Soil and get_entity_type() != Entities.Sunflower:
+			harvest()
+			trade(Items.Sunflower_Seed)
+			plant(Entities.Sunflower)
+			sunflowerz.append(measure()) 
+		else:
+			sunflowerz.append(measure())
+			pass
+		moved = moveWorld()
+		if moved == 1 and plantedSunflowers >= 64:
+			break
+		elif moved == 1 or plantedSunflowers >= 64:
+			sunflowerz = []
+			plantedSunflowers = 0
+		else:
+			pass
+		
+		
+	while True:
+		currentmax = max(sunflowerz)
+		for i in range(len(sunflowerz)):	
+			if sunflowerz[i] == max(sunflowerz):
+				y =	i % length
+				x = i // length
+				moveToCord(x , y)
+				if can_harvest():
+					harvest()
+					trade(Items.Sunflower_Seed)
+					plant(Entities.Sunflower) 
+					sunflowerz.insert(i,measure())
+					sunflowerz.pop(i+1)
+				else:
+					if num_items(Items.Fertilizer) > 0:
+						use_item(Items.Fertilizer)
+					else:
+						trade(Items.Fertilizer)
+						use_item(Items.Fertilizer)
+					pass
+				break			
+			else:
+				pass
