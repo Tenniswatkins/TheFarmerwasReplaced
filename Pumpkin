@@ -2,7 +2,8 @@
 def harvestPumpkin():
 	size = get_world_size()*get_world_size()
 	plantedPumpkins = 0 
-	while plantedPumpkins < size:		
+	while plantedPumpkins < size:
+		use_item(Items.Water_Tank)	
 		if get_entity_type() == Entities.Pumpkin:
 			if can_harvest():
 				plantedPumpkins += 1
