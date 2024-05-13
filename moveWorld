@@ -1,0 +1,10 @@
+#move forward in the world going first north, then back to south and to the East returning to start when reaching the end of the world
+def moveWorld():
+	if get_pos_y()<=get_world_size()-2:
+		move(North)
+	elif get_pos_x()<=get_world_size()-2:
+		move(North)
+		move(East)
+	else:
+		move(North)
+		move(East)
