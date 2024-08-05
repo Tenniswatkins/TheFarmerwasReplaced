@@ -1,0 +1,30 @@
+#harvests sunflower for power to given target. 
+def harvestSunflower(target):
+  length = get_world_size()
+  tiles = length**2
+  7petals = {}
+  8petals = {}
+  9petals = {}
+  10petals = {}
+  11petals = {}
+  12petals = {}
+  13petals = {}
+  14petals = {}
+  15petals = {}
+	moveToCord(0 , 0)
+  for i in tiles:
+
+
+
+set.add(elem) to add a new element to the set.
+
+
+
+
+
+
+
+
+for i in tiles 
+  if len(15petals) != 0
+      15petals.remove[1]
